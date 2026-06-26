@@ -1,6 +1,18 @@
 #[allow(non_camel_case_types)]
 #[allow(non_upper_case_globals)]
+#[cfg(not(feature = "bindgen"))]
 mod generated;
+
+#[allow(non_camel_case_types)]
+#[allow(non_upper_case_globals)]
+#[cfg(feature = "bindgen")]
+mod generated {
+    include!(concat!(env!("OUT_DIR"), "/generated.rs"));
+}
+
+#[cfg(feature = "system")]
+#[link(name = "lsl")]
+extern "C" {}
 
 pub use generated::*;
 

@@ -10,5 +10,16 @@ keywords = ["lsl", "ffi"]
 categories = ["external-ffi-bindings"]
 links = "lsl"
 
+[features]
+system = ["dep:pkg-config", "dep:vcpkg"]
+bundled = ["dep:cmake"]
+bindgen = ["dep:bindgen"]
+default = ["system", "bundled", "bindgen"]
+
 [build-dependencies]
-cmake = "0.1.44"
+cmake = { version = "0.1.44", optional = true }
+bindgen = { version = "0.72", optional = true }
+pkg-config = { version = "0.3", optional = true }
+
+[target.'cfg(windows)'.build-dependencies]
+vcpkg = { version = "0.2", optional = true }
